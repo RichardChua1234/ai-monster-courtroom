@@ -158,3 +158,5 @@ validation plan.
 10.3. WHEN the project is reviewed THEN THE SYSTEM SHALL be deployable to the Reddit Developer Platform as a Devvit Web app.
 
 10.4. WHEN the project is reviewed THEN THE SYSTEM SHALL provide a passing test suite whose acceptance criteria are verified by criterion annotations.
+
+10.5. WHEN a reviewer opens the project without an API key THEN THE SYSTEM SHALL run a complete trial end to end, labelled as rehearsal, using a deterministic stand-in that is not a language model, while leaving the judge role to the real deterministic fallback.

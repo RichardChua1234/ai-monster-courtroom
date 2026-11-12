@@ -24,8 +24,33 @@ export class LLMError extends Error {
 export const DEFAULT_TIMEOUT_MS = 30_000;
 export const DEFAULT_MAX_ATTEMPTS = 3;
 
+/**
+ * Runtime overrides. The Devvit server reads both from the environment; the
+ * browser demo has no `process`, so it injects them instead.
+ */
+let keyOverride: string | null = null;
+let baseUrlOverride: string | null = null;
+
+export function setApiKey(key: string | null): void {
+  keyOverride = key;
+}
+
+export function setBaseUrl(url: string | null): void {
+  baseUrlOverride = url;
+}
+
+function env(name: string): string | undefined {
+  // `process` does not exist in the browser; a bare property access would throw.
+  if (typeof process === 'undefined' || !process?.env) return undefined;
+  return process.env[name];
+}
+
+function apiKey(): string | undefined {
+  return keyOverride ?? env('OPENROUTER_API_KEY');
+}
+
 function endpoint(): string {
-  return process.env.OPENROUTER_BASE_URL ?? 'https://openrouter.ai/api/v1/chat/completions';
+  return baseUrlOverride ?? env('OPENROUTER_BASE_URL') ?? 'https://openrouter.ai/api/v1/chat/completions';
 }
 
 /**
@@ -43,7 +68,7 @@ export async function callJson<T>(
     fetchImpl = fetch,
   } = opts;
 
-  const key = process.env.OPENROUTER_API_KEY;
+  const key = apiKey();
   let lastError: unknown = null;
   let lastRaw: string | undefined;
 

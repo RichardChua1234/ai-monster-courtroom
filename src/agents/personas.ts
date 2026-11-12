@@ -102,9 +102,20 @@ Your verdict is structured, calibrated, and actionable.`,
 
 export const PANEL_ORDER: MonsterId[] = ['cashula', 'zed', 'frankenbyte', 'ghost'];
 
+/**
+ * The speaker's identity, in a form both the model and the code can read.
+ * `persona_id` is machine-readable: routing, logging and the rehearsal stand-in all
+ * key off it, so nothing has to pattern-match a display name.
+ */
+export function personaIdentity(id: MonsterId | 'judge'): string {
+  return `You are ${PERSONAS[id].name}, persona_id=${id}.`;
+}
+
 export function personaPrompt(id: MonsterId | 'judge', conceptText: string, priorContext = ''): string {
   const p = PERSONAS[id];
   return [
+    personaIdentity(id),
+    '',
     p.anchor,
     '',
     UNTRUSTED_PREAMBLE,

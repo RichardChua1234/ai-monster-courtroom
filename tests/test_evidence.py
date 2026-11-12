@@ -99,6 +99,13 @@ CRITERIA: dict[str, list[str]] = {
     "10.2": ["stitches four distinct monsters and a judge into one panel"],
     "10.3": ["declares a Devvit Web app the platform can host"],
     "10.4": ["carries criterion annotations in the evidence harness"],
+    "10.5": [
+        "is labelled as a stand-in rather than a model",
+        "finds more to object to in a thin concept than a complete one",
+        "refuses the judge role so the real fallback runs",
+        "runs intake, panel, debate and verdict with no API key",
+        "runs a whole trial from the sample concept to a verdict, in the browser",
+    ],
 }
 
 
@@ -372,6 +379,10 @@ class CriterionEvidence(unittest.TestCase):
     def test_10_4_annotated_evidence(self) -> None:
         # criterion: 10.4
         self._prove("10.4")
+
+    def test_10_5_keyless_rehearsal_mode(self) -> None:
+        # criterion: 10.5
+        self._prove("10.5")
 
 
 class SuiteHealth(unittest.TestCase):

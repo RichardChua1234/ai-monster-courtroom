@@ -3,7 +3,7 @@
  */
 import type { MonsterFinding, MonsterId, Concept } from '@shared/types';
 import { MonsterFindingSchema } from '@shared/schemas';
-import { PERSONAS, personaPrompt } from './personas';
+import { PERSONAS, personaPrompt, personaIdentity } from './personas';
 import { callJson } from './client';
 
 const MONSTER_SYSTEM_SUFFIX = `
@@ -66,7 +66,7 @@ export async function runMonster(
       {
         model: persona.model,
         temperature: persona.temperature,
-        system: `${persona.anchor}\n${MONSTER_SYSTEM_SUFFIX}`,
+        system: `${personaIdentity(monsterId)}\n${persona.anchor}\n${MONSTER_SYSTEM_SUFFIX}`,
         user: personaPrompt(monsterId, conceptText(concept), priorContext),
       },
       (raw) => MonsterFindingSchema.omit({ monsterId: true, monsterName: true }).parse(raw),

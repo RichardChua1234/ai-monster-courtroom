@@ -8,7 +8,7 @@ import type {
   MonsterFinding, DebateRound, Verdict, Severity, Scorecard,
 } from '@shared/types';
 import { VerdictOutputSchema } from '@shared/schemas';
-import { PERSONAS } from './personas';
+import { PERSONAS, personaIdentity } from './personas';
 import { callJson } from './client';
 
 const SEVERITY_WEIGHT: Record<Severity, number> = {
@@ -180,7 +180,7 @@ export async function runJudge(
       {
         model: PERSONAS.judge.model,
         temperature: PERSONAS.judge.temperature,
-        system: verdictSystemPrompt(),
+        system: `${personaIdentity('judge')}\n${verdictSystemPrompt()}`,
         user: `${personaHeader(conceptText)}\n\n${record}`,
       },
       (raw) => VerdictOutputSchema.parse(raw) as Omit<Verdict, 'generatedAt'>,

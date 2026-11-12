@@ -117,6 +117,11 @@ export async function runVerdictPhase(
   session.updatedAt = Date.now();
   await store.save(session);
   emit?.({ type: 'verdict', verdict });
+
+  // The trial is finished the moment a verdict exists -- whether it was reached by
+  // runTrial or by a client driving the phases itself. Leaving the status behind
+  // stranded every phase-by-phase caller in 'verdict' forever.
+  await transition(store, session, 'complete', emit);
 }
 
 /** Full trial, start to finish. */
@@ -129,8 +134,7 @@ export async function runTrial(
     const ok = await runPanelPhase(store, session, emit);
     if (!ok) return session;
     await runDebatePhase(store, session, emit);
-    await runVerdictPhase(store, session, emit);
-    await transition(store, session, 'complete', emit);
+    await runVerdictPhase(store, session, emit); // transitions to 'complete'
     return session;
   } catch (err) {
     session.error = String(err);
