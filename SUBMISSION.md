@@ -50,7 +50,7 @@ Finally the **Monster Judge** hands down a verdict — **Proceed, Pivot, Pause o
 ## How we built it
 
 **Kiro, spec-first.** The project began as a Kiro spec. `.kiro/specs/ai-monster-courtroom/`
-holds `requirements.md` (46 numbered acceptance criteria across 10 sections), `design.md`
+holds `requirements.md` (47 numbered acceptance criteria across 10 sections), `design.md`
 (architecture, model bindings, trade-offs) and `tasks.md` (phased task breakdown). Steering
 files in `.kiro/steering/` and two hooks (`on-spec-change`, `on-task-complete`) keep the
 implementation tied to the spec.
@@ -116,10 +116,10 @@ without a green test behind it.
 ## Accomplishments we're proud of
 
 ```text
-criteria 46 | proven 46 | failed 0 | uncovered 0
+criteria 47 | proven 47 | failed 0 | uncovered 0
 ```
 
-All 46 acceptance criteria are proven by named, passing tests. The evidence harness fails
+All 47 acceptance criteria are proven by named, passing tests. The evidence harness fails
 if any of them stops passing — the claim is not a summary, it's a measurement.
 
 Also proud of: a courtroom that always delivers a verdict even when the models are down,
@@ -135,7 +135,7 @@ not from asking more nicely.
 happens when a model returns garbage, times out, or talks nonsense. The deterministic
 fallback is as tested as the primary path.
 
-**Spec-driven development changes what you build.** With 46 numbered criteria and an
+**Spec-driven development changes what you build.** With 47 numbered criteria and an
 evidence harness, "done" stopped being a feeling and became a number. It also made us fix
 things we'd have otherwise rationalised away — including a real WCAG violation in our own
 colour palette.
@@ -148,6 +148,13 @@ colour palette.
 - Multi-round appeals: a user rebuts the Ghost and the panel re-convenes
 
 ## Try it
+
+**Live demo: <https://richardchua1234.github.io/ai-monster-courtroom/>**
+
+Opens with no key and no cost: the real engine runs in your browser in *rehearsal* mode,
+where a deterministic stand-in (explicitly not a language model) answers each monster and
+the judge role is left to the real deterministic-verdict fallback. Switch to *Live* and
+paste your own OpenRouter key to get real calls to all five agents.
 
 Repo: `github.com/RichardChua1234/ai-monster-courtroom`
 
