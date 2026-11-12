@@ -1,0 +1,13 @@
+{
+  "name": "on-spec-change",
+  "description": "Re-verify the spec whenever an acceptance criterion changes.",
+  "trigger": {
+    "event": "file_edited",
+    "pattern": ".kiro/specs/ai-monster-courtroom/*.md"
+  },
+  "action": {
+    "type": "shell",
+    "command": "PYTHONPATH=${PROVE_IT_SRC:-../prove-it/src} python3 -m proveit check --spec .kiro/specs/ai-monster-courtroom --tests tests",
+    "timeout_seconds": 900
+  }
+}

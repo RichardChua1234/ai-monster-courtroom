@@ -1,0 +1,12 @@
+{
+  "name": "on-task-complete",
+  "description": "Run the implementation suite and the criterion harness after a task completes.",
+  "trigger": {
+    "event": "after_task"
+  },
+  "action": {
+    "type": "shell",
+    "command": "npx vitest run && python3 -m unittest discover -s tests -v",
+    "timeout_seconds": 600
+  }
+}

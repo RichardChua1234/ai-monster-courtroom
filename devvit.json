@@ -1,0 +1,38 @@
+{
+  "name": "ai-monster-courtroom",
+  "version": "1.0.0",
+  "description": "Put your idea on trial before a panel of adversarial AI monsters.",
+  "author": "Richard Chua",
+  "repository": "https://github.com/RichardChua1234/ai-monster-courtroom",
+  "license": "MIT",
+  "devvit_web": {
+    "client": {
+      "directory": "src/client",
+      "entry": "index.html"
+    },
+    "server": {
+      "directory": "src/server",
+      "entry": "index.ts"
+    }
+  },
+  "capabilities": [
+    "redis",
+    "reddit_api",
+    "http_fetch",
+    "devvit_web",
+    "menu"
+  ],
+  "menu": [
+    {
+      "label": "Open Monster Courtroom",
+      "location": "post",
+      "action": "open_app"
+    }
+  ],
+  "settings": {
+    "max_rounds": 4,
+    "min_rounds": 2,
+    "agent_timeout_ms": 30000,
+    "sessions_per_hour": 5
+  }
+}
